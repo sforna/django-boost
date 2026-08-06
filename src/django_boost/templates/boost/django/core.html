@@ -1,0 +1,60 @@
+# Do Things the Django Way
+
+- Use `{{ assist.manage_py_command('startapp') }}` to create new Django apps. Existing apps should be checked before creating new ones.
+- Use `{{ assist.manage_py_command('makemigrations') }}` and `{{ assist.manage_py_command('migrate') }}` for database changes.
+- You can list available management commands using `{{ assist.manage_py_command('help') }}`.
+- Pass `--no-input` to all management commands to ensure they work without user interaction.
+
+## Models
+
+- When creating new models, always create useful `__str__` methods and `Meta` classes with proper ordering.
+- Use model managers and queryset methods for reusable query logic.
+- Create migrations after model changes with `{{ assist.manage_py_command('makemigrations') }}`.
+- Add appropriate `related_name` to ForeignKey fields to avoid reverse-accessor clashes.
+- Use `gettext_lazy` for translatable strings in models.
+
+## Views & URL Configuration
+
+- Use class-based views (CBVs) for standard CRUD operations: `ListView`, `DetailView`, `CreateView`, `UpdateView`, `DeleteView`.
+- For APIs, default to Django REST Framework and `ModelViewSet`/`ModelSerializer`.
+- URL patterns should be named using the `name` parameter for reverse resolution.
+- Use `reverse()` and `{% raw %}{% url %}{% endraw %}` for URL generation, never hardcode paths.
+- Follow existing URL namespace conventions (`app_name` in urls.py).
+
+## Forms
+
+- Use Django ModelForms for forms that map directly to models.
+- Always validate data server-side; client-side validation is supplementary.
+- Use `clean_<field>()` methods for custom field validation.
+- Render forms using `{% raw %}{{ form }}{% endraw %}` in templates or use crispy forms if the project uses them.
+
+## Templates
+
+- Use Django template inheritance: `{% raw %}{% extends "base.html" %}{% endraw %}` and `{% raw %}{% block %}{% endraw %}`.
+- Template partials and includes go in an `includes/` directory.
+- Use `{% raw %}{% static %}{% endraw %}` for static files, never hardcode paths.
+- If HTMX is used, follow the project's HTMX patterns (partials, hx-get, hx-post).
+
+## Testing
+
+- When creating models for tests, use `model_bakery` or model factories. Check if the project has custom factories before manually setting up models.
+- For test data, use `factory_boy` if configured, or `model_bakery` recipes.
+- When creating tests, use `{{ assist.manage_py_command('test') }}` to run the existing test suite.
+- Most tests should test behavior, not implementation. Prefer integration tests over unit tests for Django views.
+- Use pytest fixtures and `conftest.py` for shared test setup if the project uses pytest.
+
+## API & DRF
+
+- Use Django REST Framework serializers for API input/output.
+- Follow existing API versioning conventions (URL-based, header-based).
+- Use `django-filter` for filtering in viewsets.
+- API responses should be consistent with existing response patterns.
+
+## Migrations
+- Always run `{{ assist.manage_py_command('makemigrations') }}` after model changes.
+- Check generated migration files for correctness before committing.
+- Never edit a migration that has already been applied to production.
+
+## Static Files Error
+- If you receive static file 404 errors, run `{{ assist.manage_py_command('collectstatic') }}` or ask the user.
+- In development, ensure `DEBUG=True` and `django.contrib.staticfiles` is in `INSTALLED_APPS`.

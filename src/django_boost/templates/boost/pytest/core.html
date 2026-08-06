@@ -1,0 +1,35 @@
+# pytest
+
+This project uses pytest for testing.
+
+## Running Tests
+- Run all tests: `{{ assist.manage_py_command('test') }}`
+- Run a single test: `pytest path/to/test_file.py::TestClass::test_name`
+- Run with verbose output: `pytest -v`
+- Run with coverage: `pytest --cov=. --cov-report=term-missing`
+- Run only tests matching a keyword: `pytest -k "keyword"`
+
+## Writing Tests
+- Tests go in `tests/` directories within each Django app, or in a top-level `tests/` folder. Follow the existing convention.
+- Test files should be named `test_*.py`.
+- Test classes should be named `Test*`.
+- Test methods should be named `test_*`.
+
+## Fixtures
+- Use `conftest.py` for shared pytest fixtures.
+- Use `@pytest.fixture` with appropriate scopes (`function`, `class`, `module`, `session`).
+- Use `@pytest.mark.django_db` to enable database access in tests.
+- Prefer `pytest-django` fixtures: `client`, `admin_client`, `django_user_model`, `db`.
+
+## Factories
+- Use `factory_boy` or `model_bakery` to create test model instances.
+- Check for existing factories in `tests/factories/` before creating new ones.
+- Use factory traits and subfactories for complex model relationships.
+
+## Testing Best Practices
+- Do NOT delete tests without explicit approval.
+- Test behavior, not implementation.
+- Each test should be independent — do not rely on test execution order.
+- Use `@pytest.mark.parametrize` for testing multiple inputs.
+- Mock external services (APIs, email) instead of calling them in tests.
+- Use Django's `override_settings` to test with different configurations.

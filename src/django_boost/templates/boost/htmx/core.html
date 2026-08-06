@@ -1,0 +1,31 @@
+# HTMX + Alpine.js Development
+
+This project uses HTMX with Alpine.js for dynamic frontend interactions.
+
+## HTMX Basics
+- Use `hx-get`, `hx-post`, `hx-put`, `hx-delete` attributes for AJAX requests.
+- Use `hx-target` to specify where the response goes.
+- Use `hx-swap` to control how the content is replaced (default: `innerHTML`).
+- Use `hx-trigger` to customize event triggers (default: `click` for buttons, `change` for inputs).
+
+## Django + HTMX Patterns
+- Create partial templates (e.g., `_list.html`, `_form.html`) for HTMX responses.
+- Check `request.htmx` (via `django-htmx`) to conditionally render partials vs full pages.
+- Return only the HTML fragment when `request.htmx` is True.
+- Use `HX-Redirect` or `HX-Refresh` response headers where appropriate.
+
+## Alpine.js
+- Use `x-data` to define component state.
+- Use `x-show`, `x-if`, `x-model`, `x-on:click` (or `@click`) for interactivity.
+- Keep Alpine.js logic in the HTML template for simple cases; use separate JS for complex state.
+- Alpine.js and HTMX work together: HTMX for server requests, Alpine for client-side state.
+
+## Views
+- Detect HTMX requests: `request.htmx` or `request.headers.get('HX-Request')`.
+- Return `HttpResponse` or `render(request, 'app/_partial.html', context)` for HTMX.
+- Use `django.contrib.messages` with HTMX: render messages in the response partial.
+
+## Forms
+- When submitting forms with HTMX, use `hx-post` on the form element.
+- Run client-side validation with Alpine.js, server-side validation with Django forms.
+- Return form errors inline via HTMX partial updates.

@@ -1,0 +1,29 @@
+# Celery Background Tasks
+
+This project uses Celery for asynchronous task processing.
+
+## Task Definition
+- Define tasks in `tasks.py` within each Django app.
+- Use `@shared_task` or `@app.task` decorator.
+- Keep tasks idempotent — running the same task twice should be safe.
+- Tasks should be small and focused; compose complex workflows with `chain()`, `group()`, `chord()`.
+
+## Calling Tasks
+- Call `task.delay(*args, **kwargs)` to run asynchronously.
+- Use `task.apply_async()` for advanced options (countdown, eta, queue, routing_key).
+- Never call a task synchronously (`.s()`) unless in a workflow.
+
+## Configuration
+- Broker: Redis or RabbitMQ. Check `CELERY_BROKER_URL` in settings.
+- Result backend: Django ORM (`django-celery-results`) or Redis.
+- Beat scheduler: `django-celery-beat` for scheduled tasks.
+
+## Testing
+- Use `CELERY_TASK_ALWAYS_EAGER = True` in tests to run tasks synchronously.
+- Test task logic directly as regular functions, don't test the Celery infrastructure.
+- Use `@override_settings(CELERY_TASK_ALWAYS_EAGER=True)` for test classes.
+
+## Monitoring
+- Use Flower (`pip install flower`) for Celery monitoring dashboard.
+- Check task queues are being consumed in production.
+- Configure task retries with `max_retries` and exponential backoff.

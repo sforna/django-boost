@@ -1,0 +1,23 @@
+# Ruff Code Style
+
+This project uses Ruff for code formatting and linting.
+
+## Configuration
+- Configuration is in `pyproject.toml` under `[tool.ruff]`.
+- Ruff replaces the need for `black`, `isort`, `flake8`, and others.
+
+## Commands
+- Check formatting: `ruff format --check .`
+- Auto-format: `ruff format .`
+- Check linting: `ruff check .`
+- Auto-fix lint issues: `ruff check --fix .`
+- Run both: `ruff check --fix . && ruff format .`
+
+## When Writing Code
+- Always run `ruff check --fix . && ruff format .` before committing changes.
+- If the user's project doesn't use Ruff, don't add it — check for `.pre-commit-config.yaml` or `pyproject.toml` for the project's formatter.
+- Support `black` if that's what the project uses.
+
+## Import Sorting
+- Ruff follows the same import order as `isort`: standard library, third-party, local.
+- If imports are a problem, run `ruff check --fix --select I .`
