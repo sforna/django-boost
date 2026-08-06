@@ -44,6 +44,12 @@ test-fast: ## Esegui i test in parallelo
 test-watch: ## Esegui i test ad ogni modifica file
 	ptw tests/ src/ -- --tb=short
 
+test-matrix: ## Esegui i test su più versioni Python/Django (richiede tox)
+	tox run -e py310-django50,py311-django50,py312-django51,py313-django51
+
+test-all: test lint format-check ## Esegui test + lint + format (locale)
+	@echo "Tutti i check locali passati."
+
 # ── Linting & Formatting ──────────────────────────────────────────
 lint: ## Esegui linting con ruff
 	$(RUFF) check $(SRC)
