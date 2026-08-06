@@ -1,0 +1,53 @@
+name: Bug Report
+description: "Report something that's broken."
+body:
+  - type: markdown
+    attributes:
+      value: "Please read [the contributing guide](https://github.com/sforna/django-boost/blob/master/.github/CONTRIBUTING.md) before submitting bug reports."
+  - type: input
+    attributes:
+      label: Django Boost Version
+      description: Provide the django-boost version you are using.
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Django Version
+      description: Provide the Django version you are using.
+      placeholder: "5.0"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Python Version
+      description: Provide the Python version you are using.
+      placeholder: "3.12"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Agent/IDE Name & Version
+      description: Provide the AI agent or IDE you are using.
+      placeholder: "Pi 1.0 or Cursor 0.45"
+    validations:
+      required: false
+  - type: input
+    attributes:
+      label: OS
+      description: Provide your operating system details.
+      placeholder: "macOS 14, Ubuntu 22.04, Windows 11"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Description
+      description: Provide a detailed description of the issue.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps To Reproduce
+      description: Provide detailed steps to reproduce your issue.
+    validations:
+      required: true
