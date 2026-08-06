@@ -15,10 +15,12 @@ from django_boost import __version__
 from .tools.application_info import ApplicationInfo
 from .tools.browser_logs import BrowserLogs
 from .tools.database_connections import DatabaseConnections
+from .tools.database_query import DatabaseQuery
 from .tools.database_schema import DatabaseSchema
 from .tools.get_absolute_url import GetAbsoluteUrl
 from .tools.last_error import LastError
 from .tools.read_log_entries import ReadLogEntries
+from .tools.tinker import Tinker
 
 
 class DjangoBoostServer(Server):
@@ -37,15 +39,21 @@ class DjangoBoostServer(Server):
 
     def register_tools(self) -> None:
         """Register all available MCP tools."""
-        self._tools = [
+        tools = [
             ApplicationInfo(),
             BrowserLogs(),
             DatabaseConnections(),
+            DatabaseQuery(),
             DatabaseSchema(),
             GetAbsoluteUrl(),
             LastError(),
             ReadLogEntries(),
         ]
+        # Tinker is opt-in via settings
+        tinker = Tinker()
+        if tinker.should_register():
+            tools.append(tinker)
+        self._tools = tools
 
     def list_tools(self):
         """Return all registered tools."""
