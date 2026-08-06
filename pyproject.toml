@@ -1,0 +1,67 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "django-boost"
+version = "0.1.0"
+description = "Django Boost accelerates AI-assisted development by providing the essential context and structure that AI needs to generate high-quality, Django-specific code."
+keywords = ["django", "ai", "mcp", "dev"]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "Sforna"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "django>=4.2",
+    "mcp>=1.0.0",
+    "pyyaml>=6.0",
+    "jinja2>=3.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-django>=4.0",
+    "ruff>=0.9",
+    "mypy>=1.0",
+]
+cli = [
+    "rich>=13.0",
+    "questionary>=2.0",
+]
+
+[project.entry-points]
+"django_boost.mcp" = {boost = "django_boost.mcp.server:create_server"}
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/django_boost"]
+
+[tool.ruff]
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+pythonpath = ["src"]
+addopts = "-v --tb=short"
