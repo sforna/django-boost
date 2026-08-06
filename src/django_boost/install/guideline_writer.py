@@ -57,7 +57,12 @@ class GuidelineWriter:
                 return Result.FAILED
 
         try:
-            handle = open(file_path, "c+") if os.path.isfile(file_path) else open(file_path, "w+")
+            if os.path.isfile(file_path):
+                handle = open(file_path, "r+")
+            else:
+                handle = open(file_path, "a+")
+                # a+ positions at end, seek back to start
+                handle.seek(0)
         except OSError:
             return Result.FAILED
 
