@@ -1,5 +1,9 @@
 name: dependabot-auto-merge
 
+# Dependabot creates pull requests for dependency updates.
+# This workflow auto-merges those PRs when all CI checks pass,
+# but only for minor/patch GitHub Actions updates.
+
 on: pull_request
 
 permissions:

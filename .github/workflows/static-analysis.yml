@@ -5,10 +5,18 @@ on:
     branches:
       - master
       - '*.x'
+    paths-ignore:
+      - '*.md'
   pull_request:
+    paths-ignore:
+      - '*.md'
 
 permissions:
   contents: read
+
+concurrency:
+  group: mypy-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   mypy:
