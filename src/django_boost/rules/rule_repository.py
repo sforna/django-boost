@@ -47,10 +47,10 @@ class RuleRepository:
     def write_index(self) -> str:
         """Regenerate the index.md file."""
         rows = []
-        for f in self._markdown_files():
-            parsed = self._parse_file(f)
+        for file_path in self._markdown_files():
+            parsed = self._parse_file(file_path)
             if parsed and parsed.get("paths"):
-                rel = os.path.relpath(f, os.getcwd())
+                rel = os.path.relpath(file_path, os.getcwd())
                 globs = ", ".join(parsed["paths"])
                 rows.append(f"| {globs} | {rel} |")
 

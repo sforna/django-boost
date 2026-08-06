@@ -18,7 +18,7 @@ class DetectionStrategyFactory:
 
     def make_from_config(self, config: dict) -> DetectionStrategy:
         """Auto-detect strategy type from config keys."""
-        strategies = []
+        strategies: list[DetectionStrategy] = []
 
         if "command" in config:
             strategies.append(CommandDetectionStrategy())

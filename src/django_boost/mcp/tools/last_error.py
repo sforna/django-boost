@@ -59,12 +59,12 @@ class LastError(BoostTool):
 
         # First try the in-process cache
         if _last_error_cache is not None:
-            entry = (
+            cached_entry = (
                 f"[{_last_error_cache['timestamp']}] "
                 f"{_last_error_cache['level']}: "
                 f"{_last_error_cache['message']}"
             )
-            return self._ok(entry[:500])
+            return self._ok(cached_entry[:500])
 
         # Fall back to reading the log file
         log_file = resolve_log_file_path()

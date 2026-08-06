@@ -70,7 +70,7 @@ class DatabaseSchema(BoostTool):
         driver = SchemaDriverFactory.make()
 
         try:
-            result = {
+            result: dict[str, Any] = {
                 "engine": self._get_engine(),
                 "tables": self._get_tables(driver, summary, table_filter, include_column_details),
             }

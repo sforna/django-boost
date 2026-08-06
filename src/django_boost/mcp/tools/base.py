@@ -21,7 +21,7 @@ class BoostTool:
         return McpTool(
             name=self.name,
             description=self.description,
-            inputSchema=self.input_schema(),
+            input_schema=self.input_schema(),
         )
 
     def input_schema(self) -> dict[str, Any]:

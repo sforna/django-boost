@@ -23,5 +23,7 @@ class SchemaDriverFactory:
     def make(cls) -> SchemaDriver:
         """Create and return the appropriate schema driver."""
         engine = connection.vendor
-        driver_cls = cls._drivers.get(engine, NullSchemaDriver)
-        return driver_cls()
+        driver_cls = cls._drivers.get(engine)
+        if driver_cls is not None:
+            return driver_cls()  # type: ignore[abstract]
+        return NullSchemaDriver()
