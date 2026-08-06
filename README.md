@@ -270,4 +270,4 @@ pytest tests/ -v
 
 ## License
 
-MIT © [sforna](https://github.com/sforna)
+MIT © Simone Fornasiere
