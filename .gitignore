@@ -13,3 +13,4 @@ htmlcov/
 .mypy_cache/
 .ruff_cache/
 .pytest_cache/
+CONVERSION_PLAN.md
