@@ -1,0 +1,33 @@
+# Django REST Framework
+
+This project uses Django REST Framework (DRF) for API development.
+
+## Serializers
+- Use `ModelSerializer` for models, `Serializer` for custom data.
+- Nest serializers carefully — prefer `SerializerMethodField` for performance-sensitive nested data.
+- Validate business logic in `validate()` or `validate_<field>()` methods.
+- Use `read_only_fields` and `extra_kwargs` to control field behavior.
+
+## Viewsets & Routers
+- Use `ModelViewSet` for full CRUD, more specific viewsets (`ReadOnlyModelViewSet`, `GenericViewSet`) for limited operations.
+- Register with DRF routers (`DefaultRouter` or `SimpleRouter`).
+- Use `@action` decorator for custom endpoints on viewsets.
+- Follow existing API URL patterns (e.g., `/api/v1/`).
+
+## Permissions
+- Use DRF's permission classes: `IsAuthenticated`, `IsAdminUser`, `DjangoModelPermissions`.
+- Create custom permissions by extending `BasePermission`.
+- Apply permissions at the viewset level or globally in `settings.py`.
+
+## Filtering & Pagination
+- Use `django-filter` integration for queryset filtering.
+- Use DRF pagination: `PageNumberPagination`, `LimitOffsetPagination`, or `CursorPagination`.
+- Follow existing project pagination conventions.
+
+## Authentication
+- Use `TokenAuthentication`, `SessionAuthentication`, or `JWTAuthentication` as configured.
+- Follow the project's existing auth pattern.
+
+## API Documentation
+- If `drf-spectacular` or `drf-yasg` is installed, update schema/OpenAPI docs after API changes.
+- Keep schema generation up to date.

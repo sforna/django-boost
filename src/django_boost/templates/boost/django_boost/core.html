@@ -1,0 +1,32 @@
+# Django Boost
+
+Django Boost accelerates AI-assisted development by providing context and structure for Django projects.
+
+## Guidelines Management
+- Boost guidelines are updated with `{{ assist.manage_py_command('boost:install') }}` or `{{ assist.manage_py_command('boost:update') }}`.
+- Do not manually edit the `<django-boost-guidelines>` block in agent files — it will be overwritten.
+- Custom guidelines go in `.ai/guidelines/` — they persist across Boost updates.
+
+## Available MCP Tools
+Boost exposes these MCP tools for AI agents:
+- `application-info` — Python/Django version, installed packages
+- `database-schema` — Full database schema with tables, columns, indexes, FK
+- `database-query` — Execute read-only SQL queries
+- `database-connections` — List configured database connections
+- `last-error` — Get the last backend error from logs
+- `read-log-entries` — Read application log entries
+- `browser-logs` — Read browser console logs
+- `get-absolute-url` — Convert relative path to absolute URL
+- `search-docs` — Search Django ecosystem documentation
+- `record-rule` — Record durable project rules
+- `tinker` — Execute Python code in Django context (opt-in)
+
+## Project Rules
+- Rules are stored in `.ai/rules/` as markdown files with YAML frontmatter.
+- Use `record-rule` to add rules during development.
+- Rules are committed alongside the code and shared with all contributors.
+
+## Skills
+- Skills are stored in `.ai/skills/` and synced to agent directories.
+- List available skills: `{{ assist.manage_py_command('boost:list-skill') }}`.
+- Add a new skill from GitHub: `{{ assist.manage_py_command('boost:add-skill') }}`.

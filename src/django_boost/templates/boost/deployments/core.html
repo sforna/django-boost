@@ -1,0 +1,37 @@
+# Django Deployments
+
+Guidelines for deploying Django applications to production.
+
+## Server Configuration
+- Use **gunicorn** (with uvicorn workers for async) as the WSGI/ASGI server.
+- Use **nginx** or another reverse proxy in front of gunicorn.
+- Static files should be served by nginx or a CDN, not Django.
+- Set `DEBUG=False` in production. Never commit `DEBUG=True`.
+
+## Static Files
+- Run `{{ assist.manage_py_command('collectstatic') }}` during deployment.
+- Use **whitenoise** for serving static files if a reverse proxy is not available.
+- Configure `STATIC_ROOT` and `STATIC_URL` appropriately.
+- Use manifest-based static file storage for cache busting: `django.contrib.staticfiles.storage.ManifestStaticFilesStorage`.
+
+## Environment
+- Use environment variables for all sensitive settings: `SECRET_KEY`, database credentials, API keys.
+- Use `django-environ` or `python-decouple` for managing environment variables.
+- Set `ALLOWED_HOSTS` to the production domain(s).
+- Enable `SECURE_SSL_REDIRECT`, `SESSION_COOKIE_SECURE`, `CSRF_COOKIE_SECURE` in production.
+
+## Database
+- Use PostgreSQL for production (not SQLite).
+- Configure connection pooling (e.g., `django-db-geventpool` or pgbouncer).
+- Run migrations as part of the deployment process.
+- Backup the database regularly.
+
+## Background Tasks
+- Use **Celery** with Redis or RabbitMQ as the broker.
+- Run Celery worker and Celery beat as separate processes.
+- Monitor task queues in production.
+
+## Monitoring
+- Set up error tracking (Sentry or similar).
+- Configure Django logging for production: file-based or syslog.
+- Use health check endpoints for uptime monitoring.

@@ -1,0 +1,35 @@
+# django-unicorn Component Development
+
+This project uses `django-unicorn` for reactive components (like Livewire in Django).
+
+## Component Basics
+- Components live in `unicorn/components/` directory.
+- Each component is a Python class extending `UnicornView`.
+- Component properties are defined on the class as regular Python attributes.
+- Template files go alongside the component as `*.html`.
+
+## Component State
+- Properties are synced between server and client automatically.
+- Use `unicorn:model` to bind form inputs to component properties.
+- Use `unicorn:click` for action methods on the component.
+
+## Actions
+- Define action methods on the component class (any public method).
+- Actions are called from templates with `unicorn:click="method_name"`.
+- Action methods can update component properties and trigger re-renders.
+- Use `self.reset()` to reset forms after submission.
+
+## Calling Backend
+- Call Django ORM models directly in component methods.
+- Use `self.parent` to access parent component in nested contexts.
+- Use `self.call("javascript_function")` to trigger JS side effects.
+
+## Events
+- Components can emit events: `self.$emit("event_name", data)`.
+- Parent components listen with `unicorn:event-name="handler"`.
+- Use events for parent-child communication between components.
+
+## Best Practices
+- Keep component logic focused and testable.
+- Complex queries should use managers/querysets, not raw SQL in components.
+- Validate inputs server-side even with client-side bindings.

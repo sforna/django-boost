@@ -1,0 +1,25 @@
+# Test Enforcement
+
+This project enforces testing for all new code.
+
+## Rules
+- Every new model MUST have a corresponding test case that validates its creation, relationships, and behavior.
+- Every new view/endpoint MUST have a test proving it returns the expected status code and content.
+- Every new utility function MUST have unit tests covering normal and edge cases.
+- Every new form/serializer MUST have validation tests for both valid and invalid data.
+
+## Pull Request Requirements
+- All tests must pass before merging.
+- New features require new tests.
+- Bug fixes should include a regression test.
+- Test coverage should not decrease — check with `pytest --cov` or `coverage run`.
+
+## Test Structure
+- Unit tests: test individual functions, methods, and model logic.
+- Integration tests: test view responses, form submissions, and API endpoints.
+- Place tests in `tests/` directories, organized to mirror the app structure.
+
+## Running Tests
+- `{{ assist.manage_py_command('test') }}` — run the full test suite.
+- `pytest path/to/test.py -k "name"` — run specific tests.
+- Always run the relevant test suite before committing.
