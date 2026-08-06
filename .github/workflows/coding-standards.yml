@@ -1,47 +1,23 @@
-name: coding standards
+name: lint
 
 on:
   push:
-    branches:
-      - master
-      - '*.x'
-    paths-ignore:
-      - '*.md'
-      - 'LICENSE'
+    branches: [master]
+    paths-ignore: ['*.md', 'LICENSE']
   pull_request:
-    paths-ignore:
-      - '*.md'
-      - 'LICENSE'
+    paths-ignore: ['*.md', 'LICENSE']
 
 permissions:
   contents: read
 
-concurrency:
-  group: lint-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   ruff:
     runs-on: ubuntu-latest
-
-    name: Lint & Format (ruff)
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          persist-credentials: false
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install ruff
-        run: pip install ruff
-
-      - name: Check formatting
-        run: ruff format --check src/ tests/
-
-      - name: Check linting
-        run: ruff check src/ tests/
+          python-version: "3.13"
+      - run: pip install ruff
+      - run: ruff check src/ tests/
+      - run: ruff format --check src/ tests/

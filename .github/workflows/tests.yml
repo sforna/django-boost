@@ -2,55 +2,37 @@ name: tests
 
 on:
   push:
-    branches:
-      - master
-      - '*.x'
-    paths-ignore:
-      - '*.md'
-      - 'LICENSE'
+    branches: [master]
+    paths-ignore: ['*.md', 'LICENSE']
   pull_request:
-    paths-ignore:
-      - '*.md'
-      - 'LICENSE'
-  schedule:
-    - cron: '0 0 * * *'
+    paths-ignore: ['*.md', 'LICENSE']
 
 permissions:
   contents: read
 
-concurrency:
-  group: tests-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   tests:
-    runs-on: ${{ matrix.os }}
-
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest]
         python: ["3.10", "3.11", "3.12", "3.13"]
-        django: ["4.2", "5.0", "5.1"]
+        django: ["5.0", "5.1"]
 
-    name: Python ${{ matrix.python }} - Django ${{ matrix.django }} - ${{ matrix.os }}
+    name: Python ${{ matrix.python }} / Django ${{ matrix.django }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: false
+      - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
 
-      - name: Install dependencies
+      - name: Install
         run: |
-          python -m pip install --upgrade pip
+          pip install --upgrade pip
           pip install "django~=${{ matrix.django }}.0"
           pip install -e ".[dev]"
 
-      - name: Run tests
+      - name: Test
         run: pytest tests/ -v --tb=short
