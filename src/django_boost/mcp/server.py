@@ -13,8 +13,12 @@ from mcp.server.stdio import stdio_server
 from django_boost import __version__
 
 from .tools.application_info import ApplicationInfo
+from .tools.browser_logs import BrowserLogs
 from .tools.database_connections import DatabaseConnections
 from .tools.database_schema import DatabaseSchema
+from .tools.get_absolute_url import GetAbsoluteUrl
+from .tools.last_error import LastError
+from .tools.read_log_entries import ReadLogEntries
 
 
 class DjangoBoostServer(Server):
@@ -35,8 +39,12 @@ class DjangoBoostServer(Server):
         """Register all available MCP tools."""
         self._tools = [
             ApplicationInfo(),
+            BrowserLogs(),
             DatabaseConnections(),
             DatabaseSchema(),
+            GetAbsoluteUrl(),
+            LastError(),
+            ReadLogEntries(),
         ]
 
     def list_tools(self):
