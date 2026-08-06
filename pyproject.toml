@@ -63,9 +63,18 @@ packages = ["src/django_boost"]
 
 [tool.ruff]
 target-version = "py310"
+line-length = 105
+
+[tool.ruff.format]
+line-ending = "lf"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W"]
+
+[tool.ruff.lint.per-file-ignores]
+# Files with embedded JavaScript strings
+"src/django_boost/middleware.py" = ["E501", "E701"]
+"src/django_boost/services/browser_logger.py" = ["E501", "E701"]
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tests.settings"

@@ -5,7 +5,6 @@ Equivalent to Laravel Boost's RuleRepository.
 """
 
 import os
-from typing import Any
 
 import yaml
 
@@ -76,7 +75,7 @@ class RuleRepository:
         glob = glob.replace("\\", "/").strip()
         cwd = os.getcwd().rstrip("/") + "/"
         if glob.startswith(cwd):
-            glob = glob[len(cwd):]
+            glob = glob[len(cwd) :]
         return glob.lstrip("/")
 
     # ------------------------------------------------------------------

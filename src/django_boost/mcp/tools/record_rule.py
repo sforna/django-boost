@@ -42,11 +42,16 @@ class RecordRule(BoostTool):
             "properties": {
                 "glob": {
                     "type": "string",
-                    "description": "Glob for the files this rule applies to, e.g. 'app/controllers/**' or 'models/*.py'.",
+                    "description": (
+                        "Glob for the files this rule applies to, "
+                        "e.g. 'app/controllers/**' or 'models/*.py'."
+                    ),
                 },
                 "title": {
                     "type": "string",
-                    "description": "A short, specific heading, e.g. 'Extend BaseController for tenant scoping'.",
+                    "description": (
+                        "A short, specific heading, e.g. 'Extend BaseController for tenant scoping'."
+                    ),
                 },
                 "note": {
                     "type": "string",
@@ -62,9 +67,12 @@ class RecordRule(BoostTool):
         note = arguments.get("note", "").strip()
 
         missing = []
-        if not glob_val: missing.append("glob")
-        if not title: missing.append("title")
-        if not note: missing.append("note")
+        if not glob_val:
+            missing.append("glob")
+        if not title:
+            missing.append("title")
+        if not note:
+            missing.append("note")
         if missing:
             return self._error(
                 f"A rule needs a non-empty glob, title, and note. "

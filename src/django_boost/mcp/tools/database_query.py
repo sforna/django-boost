@@ -29,11 +29,17 @@ class DatabaseQuery(BoostTool):
             "properties": {
                 "query": {
                     "type": "string",
-                    "description": "The SQL query to execute. Only read-only queries are allowed (SELECT, SHOW, EXPLAIN, DESCRIBE).",
+                    "description": (
+                        "The SQL query to execute. Only read-only queries "
+                        "are allowed (SELECT, SHOW, EXPLAIN, DESCRIBE)."
+                    ),
                 },
                 "database": {
                     "type": "string",
-                    "description": "Optional database connection name. Defaults to the application's default connection.",
+                    "description": (
+                        "Optional database connection name. "
+                        "Defaults to the application's default connection."
+                    ),
                 },
             },
             "required": ["query"],

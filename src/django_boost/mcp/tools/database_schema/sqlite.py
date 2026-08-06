@@ -22,9 +22,7 @@ class SQLiteSchemaDriver(SchemaDriver):
 
     def get_views(self) -> list[dict]:
         with connection.cursor() as cursor:
-            cursor.execute(
-                "SELECT name, sql FROM sqlite_master WHERE type='view' ORDER BY name"
-            )
+            cursor.execute("SELECT name, sql FROM sqlite_master WHERE type='view' ORDER BY name")
             return [{"name": row[0], "definition": row[1]} for row in cursor.fetchall()]
 
     def get_columns(self, table_name: str) -> dict[str, dict]:

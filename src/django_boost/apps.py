@@ -17,16 +17,16 @@ class DjangoBoostConfig(AppConfig):
     def _import_agents(self) -> None:
         """Import all agent classes so they self-register."""
         try:
-            from .install.agents import (
-                pi,
-                cursor,
-                copilot,
-                codex,
-                claude_code,
-                zed,
+            from .install.agents import (  # noqa: F401
                 amp,
-                opencode,
+                claude_code,
+                codex,
+                copilot,
+                cursor,
                 grok_build,
+                opencode,
+                pi,
+                zed,
             )
         except ImportError:
             pass

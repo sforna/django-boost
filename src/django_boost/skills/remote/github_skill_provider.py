@@ -62,8 +62,16 @@ class GitHubSkillProvider:
         with tempfile.TemporaryDirectory() as tmpdir:
             try:
                 subprocess.run(
-                    ["git", "clone", "--depth", "1", "--branch", self._repository.branch,
-                     self._repository.clone_url, tmpdir],
+                    [
+                        "git",
+                        "clone",
+                        "--depth",
+                        "1",
+                        "--branch",
+                        self._repository.branch,
+                        self._repository.clone_url,
+                        tmpdir,
+                    ],
                     capture_output=True,
                     timeout=30,
                     check=True,
@@ -98,8 +106,16 @@ class GitHubSkillProvider:
         with tempfile.TemporaryDirectory() as tmpdir:
             try:
                 subprocess.run(
-                    ["git", "clone", "--depth", "1", "--branch", self._repository.branch,
-                     self._repository.clone_url, tmpdir],
+                    [
+                        "git",
+                        "clone",
+                        "--depth",
+                        "1",
+                        "--branch",
+                        self._repository.branch,
+                        self._repository.clone_url,
+                        tmpdir,
+                    ],
                     capture_output=True,
                     timeout=30,
                     check=True,
@@ -111,6 +127,7 @@ class GitHubSkillProvider:
             skill_path = os.path.join(tmpdir, skill.name)
             if os.path.isdir(skill_path):
                 import shutil
+
                 os.makedirs(target_dir, exist_ok=True)
                 shutil.copytree(skill_path, target_dir, dirs_exist_ok=True)
                 return True

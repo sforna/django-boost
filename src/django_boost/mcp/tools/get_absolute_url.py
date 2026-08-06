@@ -28,7 +28,9 @@ class GetAbsoluteUrl(BoostTool):
             "properties": {
                 "path": {
                     "type": "string",
-                    "description": 'The relative URL/path (e.g. "/dashboard") to convert to an absolute URL.',
+                    "description": (
+                        'The relative URL/path (e.g. "/dashboard") to convert to an absolute URL.'
+                    ),
                 },
                 "route": {
                     "type": "string",
@@ -47,7 +49,7 @@ class GetAbsoluteUrl(BoostTool):
         # Determine the base URL
         base_url = getattr(settings, "BOOST_BASE_URL", None)
         if not base_url:
-            base_url = f"http://localhost:8000"
+            base_url = "http://localhost:8000"
 
         if path:
             return self._ok(f"{base_url.rstrip('/')}{path}")

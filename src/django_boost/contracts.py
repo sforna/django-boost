@@ -39,6 +39,7 @@ class SupportsMcp:
     def get_python_path(self, force_absolute: bool = False) -> str:
         """Get the Python executable path for MCP."""
         import sys
+
         return sys.executable if force_absolute else "python"
 
     def get_manage_py_path(self, force_absolute: bool = False) -> str:

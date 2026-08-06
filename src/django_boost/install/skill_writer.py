@@ -7,12 +7,12 @@ Equivalent to Laravel Boost's SkillWriter.
 import os
 import shutil
 from enum import IntEnum
-from pathlib import Path
 from typing import Any
 
 
 class Result(IntEnum):
     """Write result status."""
+
     SUCCESS = 0
     UPDATED = 1
     FAILED = 2

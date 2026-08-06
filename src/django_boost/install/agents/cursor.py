@@ -24,10 +24,12 @@ class CursorAgent(Agent, SupportsGuidelines, SupportsSkills):
 
     def system_detection_config(self, platform: Platform) -> dict:
         if platform == Platform.DARWIN:
-            return {"paths": [
-                "/Applications/Cursor.app",
-                os.path.expanduser("~/Applications/Cursor.app"),
-            ]}
+            return {
+                "paths": [
+                    "/Applications/Cursor.app",
+                    os.path.expanduser("~/Applications/Cursor.app"),
+                ]
+            }
         elif platform == Platform.WINDOWS:
             return {"paths": ["C:\\Program Files\\Cursor"]}
         return {"paths": ["/usr/share/cursor"]}

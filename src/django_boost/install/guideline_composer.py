@@ -54,12 +54,12 @@ class GuidelineComposer:
 
         Templates are looked up in the templates/boost/ directory.
         """
-        from django.conf import settings
 
         template_dirs = []
 
         # Check if the package has templates
         import django_boost
+
         pkg_dir = os.path.dirname(django_boost.__file__)
         builtin_dir = os.path.join(pkg_dir, "templates", "boost")
         template_dirs.append(builtin_dir)
@@ -104,6 +104,7 @@ class GuidelineComposer:
         if path.endswith(".html"):
             try:
                 from jinja2 import Template
+
                 template = Template(content)
                 context = {
                     "assist": self._get_assist(),
@@ -118,7 +119,9 @@ class GuidelineComposer:
         """Get template assistance variables."""
         return {
             "artisan_command": lambda cmd: f"`python manage.py {cmd}`",
-            "has_skills_enabled": lambda: bool(self._config and getattr(self._config, 'has_skills', False)),
+            "has_skills_enabled": lambda: bool(
+                self._config and getattr(self._config, "has_skills", False)
+            ),
             "node_package_manager_command": lambda cmd: f"`npm {cmd}`",
             "composer_command": lambda cmd: f"`{cmd}`",
         }

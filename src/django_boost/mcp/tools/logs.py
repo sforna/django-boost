@@ -4,9 +4,8 @@ Shared log-reading utilities for MCP tools.
 Equivalent to Laravel Boost's ReadsLogs trait.
 """
 
-import glob
 import re
-from typing import List, Optional
+from typing import Optional
 
 
 def resolve_log_file_path(log_name: str = "django") -> str:
@@ -64,9 +63,7 @@ def read_last_log_entries(log_file: str, num_entries: int) -> list[str]:
     entries: list[str] = []
     current_entry: list[str] = []
 
-    log_pattern = re.compile(
-        r'^\[?\d{4}[-/]\d{2}[-/]\d{2}[ T]\d{2}:\d{2}:\d{2}'
-    )
+    log_pattern = re.compile(r"^\[?\d{4}[-/]\d{2}[-/]\d{2}[ T]\d{2}:\d{2}:\d{2}")
 
     for line in lines:
         if log_pattern.match(line) and current_entry:
@@ -88,10 +85,8 @@ def read_last_error_entry(log_file: str) -> Optional[str]:
     lines.reverse()
 
     current_entry: list[str] = []
-    log_pattern = re.compile(
-        r'^\[?\d{4}[-/]\d{2}[-/]\d{2}[ T]\d{2}:\d{2}:\d{2}'
-    )
-    error_pattern = re.compile(r'(ERROR|CRITICAL|FATAL|Exception|Traceback)', re.IGNORECASE)
+    log_pattern = re.compile(r"^\[?\d{4}[-/]\d{2}[-/]\d{2}[ T]\d{2}:\d{2}:\d{2}")
+    error_pattern = re.compile(r"(ERROR|CRITICAL|FATAL|Exception|Traceback)", re.IGNORECASE)
 
     found_error = False
     for line in reversed(lines):

@@ -5,7 +5,6 @@ Equivalent to Laravel Boost's GuidelineAssist.
 """
 
 import sys
-from typing import Any
 
 
 class GuidelineAssist:
@@ -29,6 +28,7 @@ class GuidelineAssist:
     def django_version(self) -> str:
         """Return the Django version string."""
         import django
+
         return django.get_version()
 
     def manage_py_command(self, cmd: str) -> str:
@@ -62,6 +62,7 @@ class GuidelineAssist:
         """Detect Bootstrap version if installed."""
         try:
             import json
+
             with open("package.json") as f:
                 data = json.load(f)
             deps = {**data.get("dependencies", {}), **data.get("devDependencies", {})}
@@ -74,6 +75,7 @@ class GuidelineAssist:
     def get_database_engine(self) -> str:
         """Return the configured database engine."""
         from django.conf import settings
+
         engine = settings.DATABASES.get("default", {}).get("ENGINE", "unknown")
         short_map = {
             "django.db.backends.sqlite3": "sqlite",

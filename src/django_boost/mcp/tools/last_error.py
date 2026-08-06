@@ -5,7 +5,7 @@ Equivalent to Laravel Boost's LastError tool.
 """
 
 import logging
-from typing import Any, Optional
+from typing import Optional
 
 from .base import BoostTool
 from .logs import read_last_error_entry, resolve_log_file_path

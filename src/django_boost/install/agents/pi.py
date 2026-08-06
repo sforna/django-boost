@@ -33,12 +33,10 @@ class PiAgent(Agent, SupportsGuidelines, SupportsSkills):
 
     def guidelines_path(self) -> str:
         from django.conf import settings
-        return getattr(settings, "BOOST_AGENTS", {}).get(
-            "pi", {}
-        ).get("guidelines_path", "AGENTS.md")
+
+        return getattr(settings, "BOOST_AGENTS", {}).get("pi", {}).get("guidelines_path", "AGENTS.md")
 
     def skills_path(self) -> str:
         from django.conf import settings
-        return getattr(settings, "BOOST_AGENTS", {}).get(
-            "pi", {}
-        ).get("skills_path", ".pi/skills")
+
+        return getattr(settings, "BOOST_AGENTS", {}).get("pi", {}).get("skills_path", ".pi/skills")

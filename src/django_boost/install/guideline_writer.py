@@ -5,15 +5,15 @@ Equivalent to Laravel Boost's GuidelineWriter.
 """
 
 import os
+import random
 import time
 from enum import IntEnum
-from typing import Any, Protocol
-
-import random
+from typing import Any
 
 
 class Result(IntEnum):
     """Write result status."""
+
     NEW = 0
     REPLACED = 1
     FAILED = 2
@@ -78,13 +78,12 @@ class GuidelineWriter:
             if tag_open in content:
                 # Replace existing guidelines block
                 import re
+
                 pattern = re.compile(
                     f"<{self.GUIDELINES_TAG}>.*?</{self.GUIDELINES_TAG}>",
                     re.DOTALL,
                 )
-                new_content = pattern.sub(
-                    lambda m: replacement, content, count=1
-                )
+                new_content = pattern.sub(lambda m: replacement, content, count=1)
                 replaced = True
             else:
                 # Append to end
@@ -98,6 +97,7 @@ class GuidelineWriter:
 
             # Normalize blank lines
             import re
+
             new_content = re.sub(r"\n{3,}", "\n\n", new_content)
 
             if not new_content.endswith("\n"):

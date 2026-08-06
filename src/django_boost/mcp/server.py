@@ -5,8 +5,6 @@ Provides the core Model Context Protocol server that exposes Django-specific
 tools to AI coding agents.
 """
 
-import asyncio
-
 from mcp.server import Server
 from mcp.server.stdio import stdio_server
 

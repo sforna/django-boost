@@ -17,9 +17,7 @@ class Command(BaseCommand):
             default="",
             help="Subdirectory within the repo containing the skill",
         )
-        parser.add_argument(
-            "--branch", default="main", help="Git branch to use (default: main)"
-        )
+        parser.add_argument("--branch", default="main", help="Git branch to use (default: main)")
 
     def handle(self, **options):
         source = options["source"]
@@ -32,7 +30,9 @@ class Command(BaseCommand):
         self.stdout.write(f"  Branch: {branch}")
 
         # For now, show the plan
-        self.stdout.write(self.style.SUCCESS(
-            f"Skill download initiated. Run 'git clone --depth 1 --branch {branch} "
-            f"https://github.com/{source}.git .ai/skills/boost_skill'"
-        ))
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"Skill download initiated. Run 'git clone --depth 1 --branch {branch} "
+                f"https://github.com/{source}.git .ai/skills/boost_skill'"
+            )
+        )

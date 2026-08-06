@@ -26,5 +26,7 @@ def temp_dir(tmp_path):
 def project_root(tmp_path):
     """Simulate a Django project root with manage.py."""
     manage_py = tmp_path / "manage.py"
-    manage_py.write_text("#!/usr/bin/env python\nimport sys\nif __name__ == '__main__':\n    sys.exit()\n")
+    manage_py.write_text(
+        "#!/usr/bin/env python\nimport sys\nif __name__ == '__main__':\n    sys.exit()\n"
+    )
     return tmp_path

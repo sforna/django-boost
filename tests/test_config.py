@@ -2,10 +2,6 @@
 Tests for django_boost.config module.
 """
 
-import os
-
-import pytest
-from django.conf import settings
 from django.test import override_settings
 
 from django_boost.config import DEFAULTS, get_config

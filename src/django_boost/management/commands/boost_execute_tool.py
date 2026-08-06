@@ -14,9 +14,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("tool", help="Tool name (e.g., 'database-schema')")
-        parser.add_argument(
-            "--args", default="{}", help="JSON arguments for the tool"
-        )
+        parser.add_argument("--args", default="{}", help="JSON arguments for the tool")
 
     def handle(self, **options):
         tool_name = options["tool"]
@@ -39,6 +37,7 @@ class Command(BaseCommand):
             for tool in server._tools:
                 if tool.name == tool_name:
                     import asyncio
+
                     result = asyncio.run(tool.call(args))
                     for item in result:
                         if item["type"] == "text":

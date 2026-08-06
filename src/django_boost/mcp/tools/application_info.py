@@ -32,12 +32,14 @@ class ApplicationInfo(BoostTool):
         from django.conf import settings
 
         db_config = settings.DATABASES.get("default", {})
-        return self._json({
-            "python_version": f"{sys.version_info.major}.{sys.version_info.minor}",
-            "django_version": django.get_version(),
-            "database_engine": db_config.get("ENGINE", "unknown"),
-            "packages": self._get_packages(),
-        })
+        return self._json(
+            {
+                "python_version": f"{sys.version_info.major}.{sys.version_info.minor}",
+                "django_version": django.get_version(),
+                "database_engine": db_config.get("ENGINE", "unknown"),
+                "packages": self._get_packages(),
+            }
+        )
 
     def _get_packages(self) -> list[dict[str, str]]:
         """Get installed Python packages with versions."""
@@ -46,10 +48,12 @@ class ApplicationInfo(BoostTool):
             for dist in sorted(packages_distributions()):
                 try:
                     pkg_version = version(dist)
-                    packages.append({
-                        "name": dist,
-                        "version": pkg_version,
-                    })
+                    packages.append(
+                        {
+                            "name": dist,
+                            "version": pkg_version,
+                        }
+                    )
                 except Exception:
                     pass
         except Exception:

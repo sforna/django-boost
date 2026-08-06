@@ -54,11 +54,7 @@ class InjectBoost:
 
     def _get_script(self) -> str:
         if self._script is None:
-            self._script = (
-                "<script>\n"
-                + BOOST_JS_SOURCE
-                + "\n</script>"
-            )
+            self._script = "<script>\n" + BOOST_JS_SOURCE + "\n</script>"
         return self._script
 
     @staticmethod

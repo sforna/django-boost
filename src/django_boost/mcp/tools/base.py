@@ -39,6 +39,7 @@ class BoostTool:
     def _json(self, data: Any) -> list[dict]:
         """Return a successful JSON response."""
         import json
+
         return [{"type": "text", "text": json.dumps(data, indent=2, default=str)}]
 
     def _error(self, message: str) -> list[dict]:

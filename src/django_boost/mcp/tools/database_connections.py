@@ -18,9 +18,11 @@ class DatabaseConnections(BoostTool):
         from django.conf import settings
 
         connections = list(settings.DATABASES.keys())
-        return self._json({
-            "default_connection": getattr(
-                settings, "DATABASE_DEFAULT", connections[0] if connections else None
-            ),
-            "connections": connections,
-        })
+        return self._json(
+            {
+                "default_connection": getattr(
+                    settings, "DATABASE_DEFAULT", connections[0] if connections else None
+                ),
+                "connections": connections,
+            }
+        )

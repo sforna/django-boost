@@ -28,6 +28,7 @@ def render_template(content: str, context: dict | None = None) -> str:
 
     try:
         from jinja2 import Template
+
         template = Template(content_protected)
         rendered = template.render(context)
     except Exception:

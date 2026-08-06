@@ -36,12 +36,16 @@ class SearchDocs(BoostTool):
                 "queries": {
                     "type": "array",
                     "items": {"type": "string"},
-                    "description": "List of search queries. Pass multiple if unsure (e.g. 'toggle' vs 'switch').",
+                    "description": (
+                        "List of search queries. Pass multiple if unsure (e.g. 'toggle' vs 'switch')."
+                    ),
                 },
                 "packages": {
                     "type": "array",
                     "items": {"type": "string"},
-                    "description": "Package names to limit search to (e.g. 'django', 'djangorestframework').",
+                    "description": (
+                        "Package names to limit search to (e.g. 'django', 'djangorestframework')."
+                    ),
                 },
                 "token_limit": {
                     "type": "integer",
@@ -71,11 +75,14 @@ class SearchDocs(BoostTool):
         # Build package list
         packages = self._get_packages(packages_filter)
 
-        api_url = getattr(
-            settings,
-            "BOOST_HOSTED_API_URL",
-            "https://boost.laravel.com",
-        ) + "/api/docs"
+        api_url = (
+            getattr(
+                settings,
+                "BOOST_HOSTED_API_URL",
+                "https://boost.laravel.com",
+            )
+            + "/api/docs"
+        )
 
         payload = {
             "queries": queries,

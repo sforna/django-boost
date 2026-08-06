@@ -2,8 +2,6 @@
 Tests for the command normalizer.
 """
 
-import pytest
-
 from django_boost.support.command_normalizer import normalize_command
 
 

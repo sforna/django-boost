@@ -46,11 +46,16 @@ class DatabaseSchema(BoostTool):
                 },
                 "include_routines": {
                     "type": "boolean",
-                    "description": "Include stored procedures, functions, and sequences. Defaults to false.",
+                    "description": (
+                        "Include stored procedures, functions, and sequences. Defaults to false."
+                    ),
                 },
                 "include_column_details": {
                     "type": "boolean",
-                    "description": "Include full column metadata (nullable, default, auto_increment, comments). Defaults to false.",
+                    "description": (
+                        "Include full column metadata "
+                        "(nullable, default, auto_increment, comments). Defaults to false."
+                    ),
                 },
             },
         }
@@ -67,9 +72,7 @@ class DatabaseSchema(BoostTool):
         try:
             result = {
                 "engine": self._get_engine(),
-                "tables": self._get_tables(
-                    driver, summary, table_filter, include_column_details
-                ),
+                "tables": self._get_tables(driver, summary, table_filter, include_column_details),
             }
 
             if not summary:
@@ -88,6 +91,7 @@ class DatabaseSchema(BoostTool):
 
     def _get_engine(self) -> str:
         from django.db import connection
+
         return connection.vendor
 
     def _get_tables(
@@ -106,10 +110,7 @@ class DatabaseSchema(BoostTool):
 
             if summary:
                 columns = driver.get_columns(table_name)
-                tables[table_name] = {
-                    col: info.get("type", "unknown")
-                    for col, info in columns.items()
-                }
+                tables[table_name] = {col: info.get("type", "unknown") for col, info in columns.items()}
             else:
                 tables[table_name] = self._get_table_structure(
                     driver, table_name, include_column_details
@@ -125,9 +126,7 @@ class DatabaseSchema(BoostTool):
     ) -> dict:
         try:
             return {
-                "columns": self._format_columns(
-                    driver.get_columns(table_name), include_column_details
-                ),
+                "columns": self._format_columns(driver.get_columns(table_name), include_column_details),
                 "indexes": driver.get_indexes(table_name),
                 "foreign_keys": driver.get_foreign_keys(table_name),
                 "triggers": driver.get_triggers(table_name),
@@ -138,6 +137,5 @@ class DatabaseSchema(BoostTool):
 
     def _format_columns(self, raw_columns: dict, include_details: bool) -> dict[str, dict]:
         if not include_details:
-            return {col: {"type": info.get("type", "unknown")}
-                    for col, info in raw_columns.items()}
+            return {col: {"type": info.get("type", "unknown")} for col, info in raw_columns.items()}
         return raw_columns

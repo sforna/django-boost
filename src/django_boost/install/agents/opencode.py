@@ -4,7 +4,7 @@ OpenCode agent integration.
 Equivalent to Laravel Boost's OpenCode agent.
 """
 
-from ...contracts import SupportsGuidelines, SupportsSkills, SupportsMcp
+from ...contracts import SupportsGuidelines, SupportsMcp, SupportsSkills
 from ..enums.platform import Platform
 from .agent import Agent
 from .registry import register_agent

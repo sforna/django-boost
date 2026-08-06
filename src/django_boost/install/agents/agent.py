@@ -84,6 +84,7 @@ class Agent(ABC):
 
     def _get_absolute_python_path(self) -> str:
         import sys
+
         return sys.executable
 
     def get_manage_py_path(self, force_absolute: bool = False) -> str:
@@ -191,9 +192,7 @@ class Agent(ABC):
             return False
 
         normalized = self._normalize_command(command, args)
-        env_str = " ".join(
-            f'-e {k.upper()}="{v}"' for k, v in env.items()
-        )
+        env_str = " ".join(f'-e {k.upper()}="{v}"' for k, v in env.items())
 
         cmd = shell_template.format(
             key=key,
@@ -256,9 +255,7 @@ class Agent(ABC):
 
         return True
 
-    def _normalize_command(
-        self, command: str, args: list[str] | None = None
-    ) -> dict[str, Any]:
+    def _normalize_command(self, command: str, args: list[str] | None = None) -> dict[str, Any]:
         """Normalize a command by splitting space-separated parts.
 
         Absolute paths with spaces are kept intact.

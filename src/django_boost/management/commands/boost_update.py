@@ -11,18 +11,10 @@ class Command(BaseCommand):
     help = "Update Django Boost guidelines, skills, and MCP configuration"
 
     def add_arguments(self, parser):
-        parser.add_argument(
-            "--guidelines", action="store_true", help="Update AI guidelines only"
-        )
-        parser.add_argument(
-            "--skills", action="store_true", help="Update agent skills only"
-        )
-        parser.add_argument(
-            "--mcp", action="store_true", help="Update MCP server configuration only"
-        )
-        parser.add_argument(
-            "--yes", action="store_true", help="Skip confirmation prompts"
-        )
+        parser.add_argument("--guidelines", action="store_true", help="Update AI guidelines only")
+        parser.add_argument("--skills", action="store_true", help="Update agent skills only")
+        parser.add_argument("--mcp", action="store_true", help="Update MCP server configuration only")
+        parser.add_argument("--yes", action="store_true", help="Skip confirmation prompts")
 
     def handle(self, **options):
         self.stdout.write(self.style.SUCCESS("Django Boost Update"))
@@ -51,6 +43,7 @@ class Command(BaseCommand):
     def _check_project_state(self):
         """Check what's currently installed."""
         import os
+
         if os.path.isfile("AGENTS.md"):
             with open("AGENTS.md") as f:
                 if "django-boost-guidelines" in f.read():
@@ -59,6 +52,7 @@ class Command(BaseCommand):
     def _update_guidelines(self):
         """Re-run guideline installation."""
         from django_boost.install.guideline_composer import GuidelineComposer
+
         composer = GuidelineComposer()
         guidelines = composer.compose()
         self.stdout.write(f"  Composed {len(guidelines)} chars of guidelines")

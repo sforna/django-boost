@@ -74,7 +74,7 @@ class Tinker(BoostTool):
             output = captured.getvalue().strip()
             return self._ok(output if output else "Code executed (no output).")
 
-        except Exception as e:
+        except Exception:
             traceback.print_exc(file=captured)
             return self._error(captured.getvalue().strip())
 

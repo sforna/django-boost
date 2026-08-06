@@ -2,8 +2,6 @@
 Tests for MCP tool base class and individual tools.
 """
 
-import pytest
-
 from django_boost.mcp.tools.base import BoostTool
 
 
@@ -60,6 +58,7 @@ class TestBoostTool:
     def test_call_dispatches_to_subclass(self):
         """Should execute subclass call() method."""
         import asyncio
+
         tool = FakeReadTool()
         result = asyncio.run(tool.call({"arg1": "world"}))
         assert result[0]["text"] == "Got: world"

@@ -6,7 +6,7 @@ Equivalent to Laravel Boost's GrokBuild agent.
 
 import os
 
-from ...contracts import SupportsGuidelines, SupportsSkills, SupportsMcp
+from ...contracts import SupportsGuidelines, SupportsMcp, SupportsSkills
 from ..enums.platform import Platform
 from .agent import Agent
 from .registry import register_agent
@@ -24,9 +24,11 @@ class GrokBuildAgent(Agent, SupportsGuidelines, SupportsSkills, SupportsMcp):
 
     def system_detection_config(self, platform: Platform) -> dict:
         home = os.path.expanduser("~")
-        return {"paths": [
-            os.path.join(home, ".grok"),
-        ]}
+        return {
+            "paths": [
+                os.path.join(home, ".grok"),
+            ]
+        }
 
     def project_detection_config(self) -> dict:
         return {"paths": [".grok"]}

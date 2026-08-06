@@ -52,10 +52,7 @@ def is_read_only_query(query: str) -> bool:
 
     # Block write keywords at statement boundaries (^, after (, ), or ;)
     # INSERT(...)/REPLACE(...) as function calls remain allowed
-    pattern = (
-        r"(^|[();])\s*((?:%s)\b|(?:INSERT|REPLACE)\b(?!\s*\())"
-        % _WRITE_KEYWORDS
-    )
+    pattern = r"(^|[();])\s*((?:%s)\b|(?:INSERT|REPLACE)\b(?!\s*\())" % _WRITE_KEYWORDS
     if re.search(pattern, structure, re.IGNORECASE):
         return False
 

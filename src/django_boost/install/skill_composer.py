@@ -6,11 +6,13 @@ Equivalent to Laravel Boost's SkillComposer.
 
 import os
 from dataclasses import dataclass
+from typing import Any
 
 
 @dataclass
 class Skill:
     """Represents an agent skill with its metadata."""
+
     name: str
     package: str
     path: str
@@ -59,6 +61,7 @@ class SkillComposer:
     def _get_core_skills(self) -> list[Skill]:
         """Get core skills shipped with django-boost."""
         import django_boost
+
         pkg_dir = os.path.dirname(django_boost.__file__)
         skills_dir = os.path.join(pkg_dir, "templates", "boost")
 
@@ -104,9 +107,7 @@ class SkillComposer:
 
         return skills
 
-    def _parse_skill_dir(
-        self, name: str, package: str, path: str, custom: bool = False
-    ) -> Skill | None:
+    def _parse_skill_dir(self, name: str, package: str, path: str, custom: bool = False) -> Skill | None:
         """Parse a skill directory and return a Skill object."""
         skill_md = os.path.join(path, "SKILL.md")
         description = ""

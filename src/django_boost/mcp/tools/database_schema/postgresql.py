@@ -50,8 +50,7 @@ class PostgreSQLSchemaDriver(SchemaDriver):
     def get_indexes(self, table_name: str) -> dict[str, dict]:
         with connection.cursor() as cursor:
             cursor.execute(
-                "SELECT indexname, indexdef FROM pg_catalog.pg_indexes "
-                "WHERE tablename = %s",
+                "SELECT indexname, indexdef FROM pg_catalog.pg_indexes WHERE tablename = %s",
                 [table_name],
             )
             indexes = {}
@@ -94,7 +93,6 @@ class PostgreSQLSchemaDriver(SchemaDriver):
     def get_sequences(self) -> list[str]:
         with connection.cursor() as cursor:
             cursor.execute(
-                "SELECT sequence_name FROM information_schema.sequences "
-                "ORDER BY sequence_name"
+                "SELECT sequence_name FROM information_schema.sequences ORDER BY sequence_name"
             )
             return [row[0] for row in cursor.fetchall()]

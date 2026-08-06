@@ -4,9 +4,6 @@ boost:mcp — Start the Django Boost MCP server.
 Usage: python manage.py boost:mcp
 """
 
-import os
-import sys
-
 from django.core.management.base import BaseCommand
 
 
@@ -18,10 +15,12 @@ class Command(BaseCommand):
 
         # Need Django setup before starting the server
         import django
+
         django.setup()
 
-        from django_boost.mcp.server import run_server
         import asyncio
+
+        from django_boost.mcp.server import run_server
 
         try:
             asyncio.run(run_server())

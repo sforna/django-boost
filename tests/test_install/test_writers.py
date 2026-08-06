@@ -4,8 +4,6 @@ Tests for the GuidelineWriter and SkillWriter.
 
 import os
 
-import pytest
-
 from django_boost.install.guideline_writer import GuidelineWriter, Result
 from django_boost.install.skill_writer import SkillWriter
 
@@ -57,7 +55,13 @@ class TestGuidelineWriter:
         guidelines_path = str(tmp_path / "AGENTS.md")
         # Pre-exist with old guidelines
         with open(guidelines_path, "w") as f:
-            f.write("# Existing\n\n<django-boost-guidelines>\nold guidelines\n</django-boost-guidelines>\n\n# Footer")
+            f.write(
+                "# Existing\n\n"
+                "<django-boost-guidelines>\n"
+                "old guidelines\n"
+                "</django-boost-guidelines>\n\n"
+                "# Footer"
+            )
 
         agent = FakeGuidelineAgent(guidelines_path)
         writer = GuidelineWriter(agent)

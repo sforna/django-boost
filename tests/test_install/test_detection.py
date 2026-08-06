@@ -2,18 +2,13 @@
 Tests for platform detection and agent detection strategies.
 """
 
-import os
-import tempfile
-
-import pytest
-
-from django_boost.install.enums.platform import Platform
 from django_boost.install.detection.detection_strategy import (
     CommandDetectionStrategy,
     DirectoryDetectionStrategy,
     FileDetectionStrategy,
 )
 from django_boost.install.detection.factory import DetectionStrategyFactory
+from django_boost.install.enums.platform import Platform
 
 
 class TestPlatform:
@@ -86,10 +81,15 @@ class TestDetectionFactory:
 
     def test_creates_composite_for_multiple_keys(self):
         factory = DetectionStrategyFactory()
-        strategy = factory.make_from_config({
-            "command": "which pi",
-            "paths": [".pi"],
-        })
+        strategy = factory.make_from_config(
+            {
+                "command": "which pi",
+                "paths": [".pi"],
+            }
+        )
         # Should be composite when multiple detection methods exist
-        from django_boost.install.detection.detection_strategy import CompositeDetectionStrategy
+        from django_boost.install.detection.detection_strategy import (
+            CompositeDetectionStrategy,
+        )
+
         assert isinstance(strategy, CompositeDetectionStrategy)

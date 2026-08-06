@@ -4,10 +4,8 @@ Tests for the rule repository.
 
 import os
 
-import pytest
-
-from django_boost.rules.rule_repository import RuleRepository
 from django_boost.rules.rule_frontmatter import parse_frontmatter, render_frontmatter
+from django_boost.rules.rule_repository import RuleRepository
 
 
 class TestRuleFrontmatter:
@@ -60,6 +58,7 @@ class TestRuleRepository:
 
     def test_normalize_glob(self):
         import os as _os
+
         repo = RuleRepository()
         normalized = repo.normalize_glob(f"{_os.getcwd()}/app/models/*.py")
         assert normalized == "app/models/*.py"
