@@ -20,6 +20,8 @@ from .tools.database_schema import DatabaseSchema
 from .tools.get_absolute_url import GetAbsoluteUrl
 from .tools.last_error import LastError
 from .tools.read_log_entries import ReadLogEntries
+from .tools.record_rule import RecordRule
+from .tools.search_docs import SearchDocs
 from .tools.tinker import Tinker
 
 
@@ -48,8 +50,13 @@ class DjangoBoostServer(Server):
             GetAbsoluteUrl(),
             LastError(),
             ReadLogEntries(),
+            SearchDocs(),
         ]
-        # Tinker is opt-in via settings
+        # RecordRule: opt-in via rules.enabled
+        rule = RecordRule()
+        if rule.should_register():
+            tools.append(rule)
+        # Tinker: opt-in via settings
         tinker = Tinker()
         if tinker.should_register():
             tools.append(tinker)
