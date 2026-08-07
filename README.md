@@ -37,57 +37,46 @@ pip install django-boost
 ### With uv (recommended)
 
 ```bash
-uv add django-boost
+# Add as a dev dependency — NO changes to INSTALLED_APPS required
+uv add --dev django-boost
 ```
 
-Or for development:
+### Django project setup
+
+**No changes to your Django project are required.** Django Boost works as a standalone
+CLI tool and does not need to be added to `INSTALLED_APPS`.
+
+Just make sure `DJANGO_SETTINGS_MODULE` is set in your environment:
 
 ```bash
-uv pip install django-boost
+export DJANGO_SETTINGS_MODULE=myproject.settings
 ```
 
-### Django setup
-
-Add `django_boost` to your `INSTALLED_APPS`:
-
-```python
-INSTALLED_APPS = [
-    ...
-    'django_boost',
-]
-```
-
-Add the Boost URLs (for browser log capture):
-
-```python
-urlpatterns = [
-    ...
-    path('', include('django_boost.urls')),
-]
-```
-
-Add the middleware (to inject browser log capture in HTML responses):
-
-```python
-MIDDLEWARE = [
-    ...
-    'django_boost.middleware.InjectBoost',
-]
-```
+> **Optional integrations** — if you want browser console log capture, you can
+  optionally add `django_boost` to `INSTALLED_APPS`, include the URLs, and add the
+  middleware. These are extras, not requirements.
 
 ---
 
 ## Quick Start
 
 ```bash
+# Make sure your Django settings module is set
+export DJANGO_SETTINGS_MODULE=myproject.settings
+
 # Interactive setup: guidelines, skills, and MCP config
-python manage.py boost:install
+django-boost install
 
 # Start the MCP server for your AI agent
-python manage.py boost:mcp
+django-boost mcp
 ```
 
-After running `boost:install`, your AI agent gets immediate access to all Django Boost tools.
+Or, if you prefer Django management commands (requires `django_boost` in `INSTALLED_APPS`):
+
+```bash
+python manage.py boost:install
+python manage.py boost:mcp
+```
 
 ---
 
@@ -133,20 +122,37 @@ Run `python manage.py boost:install` and Boost detects which agents you have ins
 
 ## Management Commands
 
+Django Boost provides both a **standalone CLI** (no `INSTALLED_APPS` required) and
+traditional **Django management commands** (requires `django_boost` in `INSTALLED_APPS`).
+
+| Standalone CLI | Management command (optional) | Description |
+|---|---|---|
+| `django-boost install` | `python manage.py boost:install` | Interactive setup wizard |
+| `django-boost update` | `python manage.py boost:update` | Refresh guidelines/skills/MCP config |
+| `django-boost mcp` | `python manage.py boost:mcp` | Start the MCP server |
+| `django-boost list-skill` | `python manage.py boost:list-skill` | List available skills |
+| `django-boost add-skill <repo>` | `python manage.py boost:add-skill <repo>` | Download a skill from GitHub |
+| `django-boost execute-tool <tool>` | `python manage.py boost:execute-tool <tool>` | Run a single tool |
+
 ```bash
-python manage.py boost:install          # Interactive setup wizard
-python manage.py boost:update           # Refresh guidelines/skills/MCP config
-python manage.py boost:mcp              # Start the MCP server
-python manage.py boost:list-skill       # List available skills
-python manage.py boost:add-skill <repo> # Download a skill from GitHub
-python manage.py boost:execute-tool <tool> --args '{}'  # Run a single tool
+# Standalone usage (recommended — no INSTALLED_APPS needed)
+django-boost mcp
+django-boost install --guidelines --mcp
+
+# Or via manage.py (if django_boost is in INSTALLED_APPS)
+python manage.py boost:mcp
 ```
 
 ---
 
 ## Configuration
 
-All settings go in your Django `settings.py` with the `BOOST_` prefix:
+All settings go in your Django `settings.py` with the `BOOST_` prefix.
+No changes to `INSTALLED_APPS` are required.
+
+> **Optional browser log capture** — add `django_boost` to `INSTALLED_APPS`, include
+  `django_boost.urls`, and add `django_boost.middleware.InjectBoost` only if you want
+  the browser console log feature.
 
 ```python
 # Master switch

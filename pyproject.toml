@@ -55,6 +55,9 @@ cli = [
     "questionary>=2.1.1",
 ]
 
+[project.scripts]
+django-boost = "django_boost.cli:main"
+
 [project.entry-points]
 "django_boost.mcp" = {boost = "django_boost.mcp.server:create_server"}
 
