@@ -74,8 +74,8 @@ django-boost mcp
 Or, if you prefer Django management commands (requires `django_boost` in `INSTALLED_APPS`):
 
 ```bash
-python manage.py boost:install
-python manage.py boost:mcp
+python manage.py boost_install
+python manage.py boost_mcp
 ```
 
 ---
@@ -96,7 +96,7 @@ Django Boost auto-detects and configures these agents:
 | **OpenCode** | `AGENTS.md` | `.opencode/skills` | ✅ |
 | **Grok Build** | `.grok/AGENTS.md` | `.grok/skills` | ✅ |
 
-Run `python manage.py boost:install` and Boost detects which agents you have installed.
+Run `python manage.py boost_install` and Boost detects which agents you have installed.
 
 ---
 
@@ -127,12 +127,12 @@ traditional **Django management commands** (requires `django_boost` in `INSTALLE
 
 | Standalone CLI | Management command (optional) | Description |
 |---|---|---|
-| `django-boost install` | `python manage.py boost:install` | Interactive setup wizard |
-| `django-boost update` | `python manage.py boost:update` | Refresh guidelines/skills/MCP config |
-| `django-boost mcp` | `python manage.py boost:mcp` | Start the MCP server |
-| `django-boost list-skill` | `python manage.py boost:list-skill` | List available skills |
-| `django-boost add-skill <repo>` | `python manage.py boost:add-skill <repo>` | Download a skill from GitHub |
-| `django-boost execute-tool <tool>` | `python manage.py boost:execute-tool <tool>` | Run a single tool |
+| `django-boost install` | `python manage.py boost_install` | Interactive setup wizard |
+| `django-boost update` | `python manage.py boost_update` | Refresh guidelines/skills/MCP config |
+| `django-boost mcp` | `python manage.py boost_mcp` | Start the MCP server |
+| `django-boost list-skill` | `python manage.py boost_list_skill` | List available skills |
+| `django-boost add-skill <repo>` | `python manage.py boost_add_skill <repo>` | Download a skill from GitHub |
+| `django-boost execute-tool <tool>` | `python manage.py boost_execute_tool <tool>` | Run a single tool |
 
 ```bash
 # Standalone usage (recommended — no INSTALLED_APPS needed)
@@ -140,7 +140,7 @@ django-boost mcp
 django-boost install --guidelines --mcp
 
 # Or via manage.py (if django_boost is in INSTALLED_APPS)
-python manage.py boost:mcp
+python manage.py boost_mcp
 ```
 
 ---
@@ -180,8 +180,6 @@ BOOST_EXECUTABLE_PATHS = {
     "npm": None,
 }
 
-# Docs API URL (default: Laravel Boost hosted API)
-BOOST_HOSTED_API_URL = "https://boost.laravel.com"
 
 # MCP tool timeout (seconds)
 BOOST_MCP_TOOL_TIMEOUT = 30
@@ -214,8 +212,12 @@ Django Boost ships with curated guidelines for the Django ecosystem:
 | `ruff/core.html` | Ruff formatting and linting |
 | `deployments/core.html` | gunicorn, nginx, whitenoise, production settings |
 | `django_unicorn/core.html` | Reactive components (Django's Livewire equivalent) |
-| `enforce-tests.html` | Test enforcement rules |
+| `packages.html` | **Auto-generated** — installed package versions table |
 | `django_boost/core.html` | Self-referential: Boost tools and usage |
+
+> 💡 **Key Packages** is auto-generated each time you run `boost_install` or
+> `boost_update` — it scans your installed packages and writes their exact
+> versions into the guidelines so AI agents always know what you're using.
 
 Custom guidelines go in `.ai/guidelines/` and persist across updates.
 
