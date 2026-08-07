@@ -17,6 +17,8 @@ class Command(BaseCommand):
         parser.add_argument("--args", default="{}", help="JSON arguments for the tool")
 
     def handle(self, **options):
+        import asyncio
+
         tool_name = options["tool"]
 
         try:
@@ -29,23 +31,17 @@ class Command(BaseCommand):
         if args:
             self.stdout.write(f"  Arguments: {json.dumps(args)}")
 
-        from django_boost.mcp.server import create_server
+        from django_boost.mcp.server import mcp
 
         try:
-            server = create_server()
-            # Find the tool
-            for tool in server._tools:
-                if tool.name == tool_name:
-                    import asyncio
-
-                    result = asyncio.run(tool.call(args))
-                    for item in result:
-                        if item["type"] == "text":
-                            self.stdout.write(item["text"])
-                    return
-
-            self.stderr.write(f"Tool not found: {tool_name}")
-            self.stdout.write(f"Available: {[t.name for t in server._tools]}")
-
+            result = asyncio.run(mcp.call_tool(tool_name, args))
+            for item in result if isinstance(result, list) else [result]:
+                if hasattr(item, "text"):
+                    self.stdout.write(item.text)
+                elif isinstance(item, dict) and "text" in item:
+                    self.stdout.write(item["text"])
+                elif isinstance(item, str):
+                    self.stdout.write(item)
+            return
         except Exception as e:
             self.stderr.write(f"Error: {e}")

@@ -72,13 +72,11 @@ def is_configured() -> bool:
 
 def cmd_mcp(args: argparse.Namespace) -> None:
     """Start the MCP server via stdio."""
-    import asyncio
-
-    from django_boost.mcp.server import run_server
+    from django_boost.mcp.server import mcp
 
     print("Starting Django Boost MCP server...")
     try:
-        asyncio.run(run_server())
+        mcp.run()
     except KeyboardInterrupt:
         print("\nMCP server stopped.")
 
@@ -187,6 +185,7 @@ def cmd_add_skill(args: argparse.Namespace) -> None:
 
 def cmd_execute_tool(args: argparse.Namespace) -> None:
     """Execute a single MCP tool from the command line."""
+    import asyncio
     import json
 
     tool_name = args.tool
@@ -200,25 +199,17 @@ def cmd_execute_tool(args: argparse.Namespace) -> None:
     if tool_args:
         print(f"  Arguments: {json.dumps(tool_args)}")
 
-    from django_boost.mcp.server import create_server
+    from django_boost.mcp.server import mcp
 
     try:
-        server = create_server()
-        # Find and call the tool
-        import asyncio
-
-        for tool in server._tools:
-            if tool.name == tool_name:
-                result = asyncio.run(tool.call(tool_args))
-                for item in result:
-                    if item["type"] == "text":
-                        print(item["text"])
-                return
-
-        available = [t.name for t in server._tools]
-        print(f"Tool not found: {tool_name}", file=sys.stderr)
-        print(f"Available: {available}")
-        sys.exit(1)
+        result = asyncio.run(mcp.call_tool(tool_name, tool_args))
+        for item in result if isinstance(result, list) else [result]:
+            if hasattr(item, "text"):
+                print(item.text)
+            elif isinstance(item, dict) and "text" in item:
+                print(item["text"])
+            elif isinstance(item, str):
+                print(item)
 
     except Exception as exc:
         print(f"Error: {exc}", file=sys.stderr)

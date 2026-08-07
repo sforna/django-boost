@@ -3,6 +3,6 @@ DatabaseSchema tool package.
 """
 
 from .factory import SchemaDriverFactory
-from .tool import DatabaseSchema
+from .tool import database_schema
 
-__all__ = ["DatabaseSchema", "SchemaDriverFactory"]
+__all__ = ["database_schema", "SchemaDriverFactory"]

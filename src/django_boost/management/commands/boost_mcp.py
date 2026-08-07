@@ -13,16 +13,12 @@ class Command(BaseCommand):
     def handle(self, **options):
         self.stdout.write(self.style.SUCCESS("Starting Django Boost MCP server..."))
 
-        # Need Django setup before starting the server
         import django
-
         django.setup()
 
-        import asyncio
-
-        from django_boost.mcp.server import run_server
+        from django_boost.mcp.server import mcp
 
         try:
-            asyncio.run(run_server())
+            mcp.run()
         except KeyboardInterrupt:
             self.stdout.write("\nMCP server stopped.")

@@ -1,79 +1,53 @@
 """
 DatabaseQuery tool — execute read-only SQL queries.
-
-Equivalent to Laravel Boost's DatabaseQuery tool.
 """
-
-from typing import Any
 
 from django.db import connection, connections
 
-from .base import BoostTool
+from django_boost.mcp.server import mcp
 from .sql_validator import is_read_only_query
 
 
-class DatabaseQuery(BoostTool):
-    """Execute a read-only SQL query against the configured database.
+@mcp.tool(
+    name="database-query",
+    description="Execute a read-only SQL query against the configured database.",
+    annotations={"readOnlyHint": True},
+)
+def database_query(
+    query: str,
+    database: str | None = None,
+) -> list[dict] | str:
+    """Execute a read-only SQL query.
 
-    Only SELECT, SHOW, EXPLAIN, DESCRIBE, DESC, WITH...SELECT,
+    Only SELECT, SHOW, EXPLAIN, DESCRIBE, DESC, WITH…SELECT,
     VALUES, and TABLE queries are allowed.
+
+    Args:
+        query: The SQL query to execute.
+        database: Optional database connection name. Defaults to 'default'.
     """
+    query = query.strip()
+    if not query:
+        raise ValueError("Please pass a valid query.")
 
-    name = "database-query"
-    description = "Execute a read-only SQL query against the configured database."
-    is_read_only = True
+    if not is_read_only_query(query):
+        raise ValueError(
+            "Only read-only queries are allowed "
+            "(SELECT, SHOW, EXPLAIN, DESCRIBE, DESC, WITH … SELECT)."
+        )
 
-    def input_schema(self) -> dict[str, Any]:
-        return {
-            "type": "object",
-            "properties": {
-                "query": {
-                    "type": "string",
-                    "description": (
-                        "The SQL query to execute. Only read-only queries "
-                        "are allowed (SELECT, SHOW, EXPLAIN, DESCRIBE)."
-                    ),
-                },
-                "database": {
-                    "type": "string",
-                    "description": (
-                        "Optional database connection name. "
-                        "Defaults to the application's default connection."
-                    ),
-                },
-            },
-            "required": ["query"],
-        }
+    try:
+        conn = connections[database] if database else connection
 
-    async def call(self, arguments: dict) -> list[dict]:
-        query = arguments.get("query", "").strip()
+        with conn.cursor() as cursor:
+            cursor.execute(query)
 
-        if not query:
-            return self._error("Please pass a valid query.")
+            if cursor.description:
+                columns = [col[0] for col in cursor.description]
+                rows = [dict(zip(columns, row)) for row in cursor.fetchall()]
+                return rows
+            else:
+                return "Query executed (no rows returned)."
 
-        if not is_read_only_query(query):
-            return self._error(
-                "Only read-only queries are allowed "
-                "(SELECT, SHOW, EXPLAIN, DESCRIBE, DESC, WITH … SELECT)."
-            )
-
-        db_name = arguments.get("database")
-
-        try:
-            conn = connections[db_name] if db_name else connection
-
-            with conn.cursor() as cursor:
-                cursor.execute(query)
-
-                # Get column names
-                if cursor.description:
-                    columns = [col[0] for col in cursor.description]
-                    rows = []
-                    for row in cursor.fetchall():
-                        rows.append(dict(zip(columns, row)))
-                    return self._json(rows)
-                else:
-                    return self._ok("Query executed (no rows returned).")
-
-        except Exception as e:
-            return self._error(f"Query failed: {e}")
+    except Exception as e:
+        raise ValueError(f"Query failed: {e}") from e
