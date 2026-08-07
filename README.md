@@ -86,15 +86,15 @@ Django Boost auto-detects and configures these agents:
 
 | Agent | Guidelines | Skills | MCP |
 |-------|-----------|--------|-----|
-| **Pi** | `AGENTS.md` | `.pi/skills` | — |
-| **Claude Code** | `CLAUDE.md` | `.claude/skills` | ✅ |
-| **Cursor** | `.cursorrules` | `.cursor/skills` | — |
-| **GitHub Copilot** | `.github/copilot-instructions.md` | `.github/skills` | — |
-| **Codex** | `CODEX.md` | `.codex/skills` | ✅ |
-| **Zed** | `.zed/AGENTS.md` | `.zed/skills` | ✅ |
 | **Amp** | `AGENTS.md` | `.amp/skills` | ✅ |
-| **OpenCode** | `AGENTS.md` | `.opencode/skills` | ✅ |
+| **Claude Code** | `CLAUDE.md` | `.claude/skills` | ✅ |
+| **Codex** | `CODEX.md` | `.codex/skills` | ✅ |
+| **GitHub Copilot** | `.github/copilot-instructions.md` | `.github/skills` | — |
+| **Cursor** | `.cursorrules` | `.cursor/skills` | — |
 | **Grok Build** | `.grok/AGENTS.md` | `.grok/skills` | ✅ |
+| **OpenCode** | `AGENTS.md` | `.opencode/skills` | ✅ |
+| **Pi** | `AGENTS.md` | `.pi/skills` | ✅ |
+| **Zed** | `.zed/AGENTS.md` | `.zed/skills` | ✅ |
 
 Run `python manage.py boost_install` and Boost detects which agents you have installed.
 
