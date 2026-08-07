@@ -3,7 +3,7 @@
 Django Boost accelerates AI-assisted development by providing context and structure for Django projects.
 
 ## Guidelines Management
-- Boost guidelines are updated with `{{ assist.manage_py_command('boost:install') }}` or `{{ assist.manage_py_command('boost:update') }}`.
+- Boost guidelines are updated with `{{ assist.manage_py_command('boost_install') }}` or `{{ assist.manage_py_command('boost_update') }}`.
 - Do not manually edit the `<django-boost-guidelines>` block in agent files — it will be overwritten.
 - Custom guidelines go in `.ai/guidelines/` — they persist across Boost updates.
 
@@ -28,5 +28,5 @@ Boost exposes these MCP tools for AI agents:
 
 ## Skills
 - Skills are stored in `.ai/skills/` and synced to agent directories.
-- List available skills: `{{ assist.manage_py_command('boost:list-skill') }}`.
-- Add a new skill from GitHub: `{{ assist.manage_py_command('boost:add-skill') }}`.
+- List available skills: `{{ assist.manage_py_command('boost_list_skill') }}`.
+- Add a new skill from GitHub: `{{ assist.manage_py_command('boost_add_skill') }}`.

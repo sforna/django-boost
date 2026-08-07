@@ -1,7 +1,7 @@
 """
-boost:list-skill — List all available skills.
+boost_list_skill — List all available skills.
 
-Usage: python manage.py boost:list-skill
+Usage: python manage.py boost_list_skill
 """
 
 from django.core.management.base import BaseCommand

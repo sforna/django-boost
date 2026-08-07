@@ -1,7 +1,7 @@
 """
-boost:mcp — Start the Django Boost MCP server.
+boost_mcp — Start the Django Boost MCP server.
 
-Usage: python manage.py boost:mcp
+Usage: python manage.py boost_mcp
 """
 
 from django.core.management.base import BaseCommand

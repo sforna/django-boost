@@ -1,7 +1,7 @@
 """
-boost:add-skill — Download and install a skill from GitHub.
+boost_add_skill — Download and install a skill from GitHub.
 
-Usage: python manage.py boost:add-skill <repo-url>
+Usage: python manage.py boost_add_skill <repo-url>
 """
 
 from django.core.management.base import BaseCommand

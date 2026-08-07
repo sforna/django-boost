@@ -1,7 +1,7 @@
 """
-boost:update — Update existing guidelines, skills, and MCP configuration.
+boost_update — Update existing guidelines, skills, and MCP configuration.
 
-Usage: python manage.py boost:update
+Usage: python manage.py boost_update
 """
 
 from django.core.management.base import BaseCommand

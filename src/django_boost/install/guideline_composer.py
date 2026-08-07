@@ -37,6 +37,11 @@ class GuidelineComposer:
         if django_core:
             sections.append(django_core)
 
+        # Django Boost intro
+        boost_intro = self._render_builtin_guideline("django_boost/core")
+        if boost_intro:
+            sections.append(boost_intro)
+
         # Key packages with versions (auto-generated)
         packages = self._render_builtin_guideline("packages")
         if packages:

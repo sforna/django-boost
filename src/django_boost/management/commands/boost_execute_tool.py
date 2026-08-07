@@ -1,7 +1,7 @@
 """
-boost:execute-tool — Execute a single MCP tool from the command line.
+boost_execute_tool — Execute a single MCP tool from the command line.
 
-Usage: python manage.py boost:execute-tool <tool-name> [--args '{"key":"value"}']
+Usage: python manage.py boost_execute_tool <tool-name> [--args '{"key":"value"}']
 """
 
 import json

@@ -33,15 +33,15 @@ class McpWriter:
         key = "django-boost"
 
         if sail:
-            # Sail/Docker: use 'python manage.py boost:mcp'
+            # Sail/Docker: use 'python manage.py boost_mcp'
             command = f"{sail.get_command()} python"
-            args = ["manage.py", "boost:mcp"]
+            args = ["manage.py", "boost_mcp"]
             env = sail.get_env() if hasattr(sail, "get_env") else {}
             success = self._agent.install_mcp(key, command, args, env)
         else:
             # Default: use Python from PATH with manage.py
             command = self._agent.get_python_path()
-            args = [self._agent.get_manage_py_path(), "boost:mcp"]
+            args = [self._agent.get_manage_py_path(), "boost_mcp"]
             success = self._agent.install_mcp(key, command, args)
 
         return 1 if success else 0

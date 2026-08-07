@@ -1,7 +1,7 @@
 """
-boost:install — Interactive installation of Django Boost features.
+boost_install — Interactive installation of Django Boost features.
 
-Usage: python manage.py boost:install
+Usage: python manage.py boost_install
 """
 
 from django.core.management.base import BaseCommand
