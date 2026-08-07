@@ -37,6 +37,11 @@ class GuidelineComposer:
         if django_core:
             sections.append(django_core)
 
+        # Key packages with versions (auto-generated)
+        packages = self._render_builtin_guideline("packages")
+        if packages:
+            sections.append(packages)
+
         # Test framework guidelines
         tests = self._render_builtin_guideline("pytest/core")
         if tests:
@@ -115,13 +120,11 @@ class GuidelineComposer:
                 pass
         return content
 
-    def _get_assist(self) -> dict:
-        """Get template assistance variables."""
-        return {
-            "artisan_command": lambda cmd: f"`python manage.py {cmd}`",
-            "has_skills_enabled": lambda: bool(
-                self._config and getattr(self._config, "has_skills", False)
-            ),
-            "node_package_manager_command": lambda cmd: f"`npm {cmd}`",
-            "composer_command": lambda cmd: f"`{cmd}`",
-        }
+    def _get_assist(self):
+        """Get template assistance helper."""
+        from .guideline_assist import GuidelineAssist
+
+        assist = GuidelineAssist()
+        if self._config and getattr(self._config, "has_skills", False):
+            assist.set_skills_enabled(True)
+        return assist

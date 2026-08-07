@@ -5,6 +5,9 @@ Equivalent to Laravel Boost's GuidelineAssist.
 """
 
 import sys
+from importlib.metadata import packages_distributions, version
+
+from .package_registry import DJANGO_ECOSYSTEM_PACKAGES
 
 
 class GuidelineAssist:
@@ -83,3 +86,27 @@ class GuidelineAssist:
             "django.db.backends.mysql": "mysql",
         }
         return short_map.get(engine, engine)
+
+    def key_packages(self) -> list[dict[str, str]]:
+        """Return installed Django-ecosystem packages with versions.
+
+        Scans all installed packages and returns those that are part
+        of the Django ecosystem, sorted alphabetically. Each entry has
+        'name' and 'version' keys.
+        """
+        packages: list[dict[str, str]] = []
+        try:
+            for dist in sorted(packages_distributions()):
+                # Only include known Django-ecosystem packages
+                if dist not in DJANGO_ECOSYSTEM_PACKAGES:
+                    continue
+                try:
+                    packages.append({
+                        "name": dist,
+                        "version": version(dist),
+                    })
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        return packages

@@ -9,11 +9,11 @@ Before relying on a package's API, confirm its installed version:
 - Python packages: run `pip list` or `pip show <package>` for a single package.
 - JS packages: check `package.json` for the installed versions.
 
-@if assist.bootstrap_version()
+{% if assist.bootstrap_version() %}
 Bootstrap/CSS: This project uses Bootstrap {{ assist.bootstrap_version() }}.
 {% endif %}
 
-@if assist.has_skills_enabled()
+{% if assist.has_skills_enabled() %}
 ## Skills Activation
 This project has domain-specific skills available in `**/skills/**`. You MUST activate the relevant skill whenever you work in that domain—don't wait until you're stuck.
 {% endif %}

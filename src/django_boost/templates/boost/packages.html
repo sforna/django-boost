@@ -1,0 +1,18 @@
+## Key Packages
+
+{%- set pkgs = assist.key_packages() -%}
+{% if pkgs %}
+The table below is auto-generated from the packages currently installed.
+Confirm versions before relying on undocumented or deprecated APIs.
+
+| Package | Version |
+|---|---|
+{% for pkg in pkgs -%}
+| {{ pkg.name }} | {{ pkg.version }} |
+{% endfor %}
+
+Run `pip list` to see the full list of installed packages.
+{% else %}
+No Django-ecosystem package metadata could be read. Run `pip list`
+to audit the installed packages.
+{% endif %}
