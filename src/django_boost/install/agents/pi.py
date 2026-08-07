@@ -4,14 +4,14 @@ Pi agent integration.
 Equivalent to Laravel Boost's Pi agent.
 """
 
-from ...contracts import SupportsGuidelines, SupportsSkills
+from ...contracts import SupportsGuidelines, SupportsMcp, SupportsSkills
 from ..enums.platform import Platform
 from .agent import Agent
 from .registry import register_agent
 
 
 @register_agent
-class PiAgent(Agent, SupportsGuidelines, SupportsSkills):
+class PiAgent(Agent, SupportsGuidelines, SupportsSkills, SupportsMcp):
     """Pi coding agent by Earendil Works."""
 
     def name(self) -> str:
@@ -40,3 +40,6 @@ class PiAgent(Agent, SupportsGuidelines, SupportsSkills):
         from django.conf import settings
 
         return getattr(settings, "BOOST_AGENTS", {}).get("pi", {}).get("skills_path", ".pi/skills")
+
+    def mcp_config_path(self) -> str | None:
+        return ".pi/mcp.json"
