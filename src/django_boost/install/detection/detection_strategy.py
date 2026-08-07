@@ -28,7 +28,7 @@ class CommandDetectionStrategy(DetectionStrategy):
         if not command:
             return False
         try:
-            result = subprocess.run(
+            result = subprocess.run(  # nosec B602
                 command,
                 shell=True,
                 capture_output=True,

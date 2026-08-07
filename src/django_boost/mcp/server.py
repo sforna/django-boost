@@ -43,14 +43,14 @@ async def run_server() -> None:
 # Each module imports ``mcp`` from here and applies @mcp.tool on a function.
 # The noqa comments silence "unused import" lints.
 # ---------------------------------------------------------------------------
-import django_boost.mcp.tools.application_info as _  # noqa: E402,F811
-import django_boost.mcp.tools.browser_logs as _  # noqa: E402,F811
-import django_boost.mcp.tools.database_connections as _  # noqa: E402,F811
-import django_boost.mcp.tools.database_query as _  # noqa: E402,F811
-import django_boost.mcp.tools.database_schema.tool as _  # noqa: E402,F811
-import django_boost.mcp.tools.get_absolute_url as _  # noqa: E402,F811
-import django_boost.mcp.tools.last_error as _  # noqa: E402,F811
-import django_boost.mcp.tools.read_log_entries as _  # noqa: E402,F811
-import django_boost.mcp.tools.record_rule as _  # noqa: E402,F811
-import django_boost.mcp.tools.search_docs as _  # noqa: E402,F811
-import django_boost.mcp.tools.tinker as _  # noqa: E402,F811
+import django_boost.mcp.tools.application_info as _app_info  # noqa: F401,E402
+import django_boost.mcp.tools.browser_logs as _browser_logs  # noqa: F401,E402
+import django_boost.mcp.tools.database_connections as _db_conns  # noqa: F401,E402
+import django_boost.mcp.tools.database_query as _db_query  # noqa: F401,E402
+import django_boost.mcp.tools.database_schema.tool as _db_schema  # noqa: F401,E402
+import django_boost.mcp.tools.get_absolute_url as _abs_url  # noqa: F401,E402
+import django_boost.mcp.tools.last_error as _last_error  # noqa: F401,E402
+import django_boost.mcp.tools.read_log_entries as _log_entries  # noqa: F401,E402
+import django_boost.mcp.tools.record_rule as _record_rule  # noqa: F401,E402
+import django_boost.mcp.tools.search_docs as _search_docs  # noqa: F401,E402
+import django_boost.mcp.tools.tinker as _tinker  # noqa: F401,E402

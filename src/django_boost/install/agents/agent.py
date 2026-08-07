@@ -202,7 +202,7 @@ class Agent(ABC):
         )
 
         try:
-            result = subprocess.run(cmd, shell=True, capture_output=True, timeout=30)
+            result = subprocess.run(cmd, shell=True, capture_output=True, timeout=30)  # nosec B602
             if result.returncode == 0:
                 return True
             return "already exists" in result.stderr.decode(errors="replace")

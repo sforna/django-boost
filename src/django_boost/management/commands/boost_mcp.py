@@ -14,6 +14,7 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("Starting Django Boost MCP server..."))
 
         import django
+
         django.setup()
 
         from django_boost.mcp.server import mcp

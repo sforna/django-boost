@@ -5,6 +5,7 @@ LastError tool — returns the last error from the application log.
 import logging
 
 from django_boost.mcp.server import mcp
+
 from .logs import read_last_error_entry, resolve_log_file_path
 
 # Module-level state for the in-process log listener.

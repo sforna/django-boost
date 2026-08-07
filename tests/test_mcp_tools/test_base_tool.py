@@ -47,9 +47,7 @@ class TestDatabaseSchemaTool:
     @pytest.mark.django_db
     def test_summary_mode(self):
         """Should return summary with table names and column types."""
-        result = asyncio.run(
-            mcp.call_tool("database-schema", {"summary": True})
-        )
+        result = asyncio.run(mcp.call_tool("database-schema", {"summary": True}))
         assert not result.is_error
         text = result.content[0].text
         assert "sqlite" in text.lower()
@@ -72,9 +70,7 @@ class TestRecordRuleTool:
     def test_missing_args_raises(self):
         """Should raise an error when required args are missing."""
         with pytest.raises(Exception):
-            asyncio.run(
-                mcp.call_tool("record-rule", {"glob": "", "title": "", "note": ""})
-            )
+            asyncio.run(mcp.call_tool("record-rule", {"glob": "", "title": "", "note": ""}))
 
 
 class TestTinkerTool:
@@ -103,6 +99,4 @@ class TestDatabaseQueryTool:
     def test_invalid_query_rejected(self):
         """Should reject write queries."""
         with pytest.raises(Exception):
-            asyncio.run(
-                mcp.call_tool("database-query", {"query": "DELETE FROM users"})
-            )
+            asyncio.run(mcp.call_tool("database-query", {"query": "DELETE FROM users"}))

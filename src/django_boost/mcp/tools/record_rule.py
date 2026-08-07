@@ -50,8 +50,7 @@ def record_rule(
         missing.append("note")
     if missing:
         raise ValueError(
-            f"A rule needs a non-empty glob, title, and note. "
-            f"Missing or empty: {', '.join(missing)}."
+            f"A rule needs a non-empty glob, title, and note. Missing or empty: {', '.join(missing)}."
         )
 
     try:

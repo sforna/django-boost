@@ -5,6 +5,7 @@ DatabaseQuery tool — execute read-only SQL queries.
 from django.db import connection, connections
 
 from django_boost.mcp.server import mcp
+
 from .sql_validator import is_read_only_query
 
 
@@ -32,8 +33,7 @@ def database_query(
 
     if not is_read_only_query(query):
         raise ValueError(
-            "Only read-only queries are allowed "
-            "(SELECT, SHOW, EXPLAIN, DESCRIBE, DESC, WITH … SELECT)."
+            "Only read-only queries are allowed (SELECT, SHOW, EXPLAIN, DESCRIBE, DESC, WITH … SELECT)."
         )
 
     try:

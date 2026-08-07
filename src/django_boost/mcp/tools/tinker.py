@@ -47,7 +47,7 @@ def tinker(code: str) -> str:
     try:
         compiled = compile(code, "<tinker>", "exec")
         namespace: dict = {"__builtins__": __builtins__}
-        exec(compiled, namespace)
+        exec(compiled, namespace)  # nosec B102
 
         output = captured.getvalue().strip()
         return output if output else "Code executed (no output)."

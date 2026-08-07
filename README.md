@@ -175,7 +175,7 @@ BOOST_TINKER_TOOL_ENABLED = False
 
 # Custom executable paths (auto-detected if not set)
 BOOST_EXECUTABLE_PATHS = {
-    "python": None,     # e.g., "/usr/bin/python3.12"
+    "python": None,  # e.g., "/usr/bin/python3.12"
     "pip": None,
     "npm": None,
 }

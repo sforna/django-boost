@@ -3,6 +3,7 @@ DatabaseSchema tool — reads the database schema for this application.
 """
 
 from django_boost.mcp.server import mcp
+
 from .factory import SchemaDriverFactory
 
 
@@ -73,9 +74,7 @@ def _get_tables(
 
         if summary:
             columns = driver.get_columns(table_name)
-            tables[table_name] = {
-                col: info.get("type", "unknown") for col, info in columns.items()
-            }
+            tables[table_name] = {col: info.get("type", "unknown") for col, info in columns.items()}
         else:
             tables[table_name] = _get_table_structure(driver, table_name, include_column_details)
 

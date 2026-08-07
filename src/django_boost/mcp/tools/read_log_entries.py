@@ -3,6 +3,7 @@ ReadLogEntries tool — reads the last N entries from the application log.
 """
 
 from django_boost.mcp.server import mcp
+
 from .logs import read_last_log_entries, resolve_log_file_path
 
 

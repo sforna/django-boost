@@ -44,7 +44,6 @@ def bootstrap_django(settings: str | None = None, pythonpath: str | None = None)
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
 
     import django
-    from django.core.management import call_command
 
     # If django_boost is in INSTALLED_APPS, management commands are auto-discovered.
     # Otherwise we still want django.setup() so the ORM / settings are available,
@@ -84,10 +83,7 @@ def cmd_mcp(args: argparse.Namespace) -> None:
 def cmd_install(args: argparse.Namespace) -> None:
     """Run the interactive installation wizard."""
     print("Django Boost Install")
-    print(
-        "This command will configure AI guidelines, skills, and MCP servers "
-        "for your Django project."
-    )
+    print("This command will configure AI guidelines, skills, and MCP servers for your Django project.")
     print("(Full installation wizard coming in a future version.)")
 
     features = []

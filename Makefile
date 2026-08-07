@@ -4,13 +4,13 @@
 .DEFAULT_GOAL := help
 
 # ── Variables ─────────────────────────────────────────────────────
-PYTHON    := python
-PIP       := pip
+PYTHON    := uv run python
+PIP       := uv pip
 UV        := uv
-RUFF      := ruff
-MYPY      := mypy
-PYTEST    := pytest
-BANDIT    := bandit
+RUFF      := uv run ruff
+MYPY      := uv run mypy
+PYTEST    := uv run pytest
+BANDIT    := uv run bandit
 SRC       := src tests
 
 # ── Help ──────────────────────────────────────────────────────────
