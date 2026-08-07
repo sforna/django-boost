@@ -101,10 +101,12 @@ class GuidelineAssist:
                 if dist not in DJANGO_ECOSYSTEM_PACKAGES:
                     continue
                 try:
-                    packages.append({
-                        "name": dist,
-                        "version": version(dist),
-                    })
+                    packages.append(
+                        {
+                            "name": dist,
+                            "version": version(dist),
+                        }
+                    )
                 except Exception:
                     pass
         except Exception:
