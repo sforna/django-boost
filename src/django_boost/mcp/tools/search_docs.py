@@ -198,13 +198,12 @@ def search_docs(
         lines.append("")
 
     # -- Related package docs --------------------------------------------------
-    if pkgs_with_docs:
+    non_django = [p for p in pkgs_with_docs if p is not django_pkg]
+    if non_django:
         lines.append("### Related package documentation")
         lines.append("")
         seen: set[str] = set()
-        for pkg in pkgs_with_docs:
-            if pkg is django_pkg:
-                continue
+        for pkg in non_django:
             url = pkg["docs_url"]
             if url not in seen:
                 seen.add(url)
